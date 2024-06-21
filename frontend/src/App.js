@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
-
+import './styles/App.css';
+import './styles/login.css';
+import Home from './components/Home';
+import React, { useEffect } from 'react';
+import Navbar from './components/Navbar';
+import ScrollToTop from './components/ScrollToTop';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
+
+    useEffect(() => {
+      const originalTitle = document.title;
+      const handleBlur = () => {
+        document.title = "Come back 😢";
+      };
+  
+      const handleFocus = () => {
+        document.title = originalTitle;
+      };
+  
+      window.addEventListener('blur', handleBlur);
+      window.addEventListener('focus', handleFocus);
+  
+      // Cleanup event listeners on component unmount
+      return () => {
+        window.removeEventListener('blur', handleBlur);
+        window.removeEventListener('focus', handleFocus);
+      };
+    }, []);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+
+      <ToastContainer />
+      <Navbar />
+      <ScrollToTop />
+      <Home />
+    </>
   );
 }
 
